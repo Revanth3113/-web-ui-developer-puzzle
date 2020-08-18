@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { debounceTime,distinctUntilChanged } from 'rxjs/operators';
 import {
   addToReadingList,
   clearSearch,
@@ -35,6 +36,14 @@ export class BookSearchComponent implements OnInit {
     this.store.select(getAllBooks).subscribe(books => {
       this.books = books;
     });
+    this.searchForm.controls['term']
+    .valueChanges
+    .pipe(debounceTime(500),
+    distinctUntilChanged())
+    .subscribe(()=> {
+    this.searchBooks();
+    });
+    
   }
 
   formatDate(date: void | string) {
