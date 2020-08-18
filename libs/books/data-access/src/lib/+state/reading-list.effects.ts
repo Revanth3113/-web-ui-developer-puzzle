@@ -5,6 +5,7 @@ import * as ReadingListActions from './reading-list.actions';
 import { HttpClient } from '@angular/common/http';
 import { ReadingListItem } from '@tmo/shared/models';
 import { map } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable()
 export class ReadingListEffects implements OnInitEffects {
@@ -51,6 +52,28 @@ export class ReadingListEffects implements OnInitEffects {
     )
   );
 
+  undoAddBook$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ReadingListActions.undoAddToReadingList),
+      optimisticUpdate({
+        run: ({ book }) => {
+          const snackBarRef = this._snackBar.open('Add to list', 'Undo',{duration:2000});
+          return  snackBarRef.onAction().pipe(map(() =>{
+            return  ReadingListActions.removeFromReadingList({
+              item:{bookId:book.id,...book}
+            })
+          }
+          ));
+        },
+        undoAction: ({ book }) => {
+          return ReadingListActions.failedAddToReadingList({
+            book
+          });
+        }
+      })
+    )
+  );
+
   removeBook$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ReadingListActions.removeFromReadingList),
@@ -73,9 +96,32 @@ export class ReadingListEffects implements OnInitEffects {
     )
   );
 
+  undoRemoveFromReadingList$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ReadingListActions.undoRemoveFromReadingList),
+      optimisticUpdate({
+        run: ({ item }) => {
+          const snackBarRef = this._snackBar.open('Remove from list', 'Undo',{duration:2000});
+        return  snackBarRef.onAction().pipe(map(() =>{
+          return  ReadingListActions.addToReadingList({
+            book:{id:item.bookId,...item}
+            })
+          }
+          ));
+
+          },
+        undoAction: ({ item }) => {
+          return ReadingListActions.failedRemoveFromReadingList({
+            item
+          });
+        }
+      })
+    )
+  );
+
   ngrxOnInitEffects() {
     return ReadingListActions.loadReadingList();
   }
 
-  constructor(private actions$: Actions, private http: HttpClient) {}
+  constructor(private actions$: Actions, private http: HttpClient,private _snackBar: MatSnackBar) {}
 }
