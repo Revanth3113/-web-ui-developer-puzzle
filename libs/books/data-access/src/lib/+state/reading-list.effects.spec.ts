@@ -9,6 +9,7 @@ import { SharedTestingModule } from '@tmo/shared/testing';
 import { ReadingListEffects } from './reading-list.effects';
 import * as ReadingListActions from './reading-list.actions';
 import { HttpTestingController } from '@angular/common/http/testing';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 describe('ToReadEffects', () => {
   let actions: ReplaySubject<any>;
@@ -21,6 +22,7 @@ describe('ToReadEffects', () => {
       providers: [
         ReadingListEffects,
         DataPersistence,
+        { provide: MatSnackBar, useValue : {} },
         provideMockActions(() => actions),
         provideMockStore()
       ]
