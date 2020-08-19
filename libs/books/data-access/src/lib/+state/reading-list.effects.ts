@@ -57,7 +57,7 @@ export class ReadingListEffects implements OnInitEffects {
       ofType(ReadingListActions.undoAddToReadingList),
       optimisticUpdate({
         run: ({ book }) => {
-          const snackBarRef = this._snackBar.open('Add to list', 'Undo',{duration:2000});
+          const snackBarRef = this._snackBar.open('Add to list', 'Undo',{duration:2000,verticalPosition:'top'});
           return  snackBarRef.onAction().pipe(map(() =>{
             return  ReadingListActions.removeFromReadingList({
               item:{bookId:book.id,...book}
@@ -101,7 +101,7 @@ export class ReadingListEffects implements OnInitEffects {
       ofType(ReadingListActions.undoRemoveFromReadingList),
       optimisticUpdate({
         run: ({ item }) => {
-          const snackBarRef = this._snackBar.open('Remove from list', 'Undo',{duration:2000});
+          const snackBarRef = this._snackBar.open('Remove from list', 'Undo',{duration:2000,verticalPosition:'top'});
         return  snackBarRef.onAction().pipe(map(() =>{
           return  ReadingListActions.addToReadingList({
             book:{id:item.bookId,...item}

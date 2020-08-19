@@ -17,12 +17,20 @@ describe('When: Use the search feature', () => {
     expect(items.length).to.be.greaterThan(1, 'At least one book');
   });
 
-  xit('Then: I should see search results as I am typing', async () => {
+  it('Then: Testing Undo Action', async () => {
     await browser.get('/');
     await browser.wait(
       ExpectedConditions.textToBePresentInElement($('tmo-root'), 'okreads')
     );
+    const form = await $('form');
+    const input = await $('input[type="search"]');
+    await input.sendKeys('angular');
+    await form.submit();
+    const wantToRead = await $('[data-testing="wantToRead"]');
+    await wantToRead.click();
 
-    // TODO: Implement this test!
+    const count = await $('[data-testing="count"]');
+    expect(count.getText()).to.exist;
+    
   });
 });
