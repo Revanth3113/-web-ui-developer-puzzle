@@ -18,6 +18,7 @@
        color="warn"
        [attr.aria-label]="'Finished ' + b.title + ' from reading list'"
        (click)="updatefinishToReadingList(b)"
+       data-testing="readingCompleted" 
      >
        <mat-icon>check</mat-icon>
      </button>
@@ -28,6 +29,7 @@
         color="warn"
         [attr.aria-label]="'Remove ' + b.title + ' from reading list'"
         (click)="removeFromReadingList(b)"
+       
       >
         <mat-icon>remove_circle</mat-icon>
       </button>

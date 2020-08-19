@@ -37,6 +37,7 @@
               (click)="addBookToReadingList(b)"
               [disabled]="b.isAdded"
               [attr.aria-label]="'Want to Read ' + b.title "
+              data-testing="wantToRead"
             >
               Want to Read
             </button>
@@ -46,6 +47,7 @@
               mat-flat-button
               color="accent"
               [attr.aria-label]="'Finished ' + b.title "
+              data-testing="finished" 
             >
             Finished
             </button>
