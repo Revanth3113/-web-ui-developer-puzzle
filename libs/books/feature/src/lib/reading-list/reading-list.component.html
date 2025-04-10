@@ -9,12 +9,27 @@
         {{ b.authors.join(',') }}
       </div>
     </div>
+    <div *ngIf='b.finishedDate'>
+      {{b.finishedDate}}
+   </div>
+   <div *ngIf='!b.finishedDate'>
+     <button
+       mat-icon-button
+       color="warn"
+       [attr.aria-label]="'Finished ' + b.title + ' from reading list'"
+       (click)="updatefinishToReadingList(b)"
+       data-testing="readingCompleted" 
+     >
+       <mat-icon>check</mat-icon>
+     </button>
+   </div>
     <div>
       <button
         mat-icon-button
         color="warn"
         [attr.aria-label]="'Remove ' + b.title + ' from reading list'"
         (click)="removeFromReadingList(b)"
+       
       >
         <mat-icon>remove_circle</mat-icon>
       </button>
