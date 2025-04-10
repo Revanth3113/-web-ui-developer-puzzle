@@ -46,5 +46,5 @@ Then add them to their reading list.
   npx nx test books-feature
   ```
 
-
+**Please take a look at the open Pull requests for some enhancements made to the functionality for this project**
 
