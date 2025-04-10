@@ -5,14 +5,8 @@ Dev Puzzle
 Please **DO NOT** clone or fork this repo. Follow the steps below to get started.
 
 1. [Download the ZIP](../../archive/master.zip) file and extract it on your machine.
-2. Go into the extracted folder and run:
-   ```
-   git init
-   git add .
-   git commit -m 'initial commit'
-   ```
-3. Create a _new_ repo on [GitHub](https://github.com)/[GitLab](https://gitlab.com)/[BitBucket](https://bitbucket.org) and push your new repo there.
-4. Install dependencies with `npm install`.
+
+2. Install dependencies with `npm install`.
 
 You should be able to start the app with `npm start`. The app runs at http://localhost:4200.
 
